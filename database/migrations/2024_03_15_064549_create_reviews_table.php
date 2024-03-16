@@ -14,15 +14,18 @@ return new class extends Migration
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('book_id');
+            // $table->unsignedBigInteger('book_id'); //foreign key
 
             $table->text('review');
             $table->unsignedTinyInteger('rating');
 
             $table->timestamps();
 
-            $table->foreign('book_id')->references('id')->on('books')
-                ->onDelete('cascade');
+            // $table->foreign('book_id')->references('id')->on('books')
+            //     ->onDelete('cascade'); //reference a foreign key
+
+            $table->foreignId('book_id')->constrained()
+            ->cascadeOnDelete(); //shorter but the other one gives you more flexibility
         });
     }
 
